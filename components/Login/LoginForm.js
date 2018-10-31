@@ -1,8 +1,28 @@
 import React,  { Component } from 'react';
 import { StyleSheet, View, Image, TextInput, TouchableOpacity, Text, StatusBar } from 'react-native';
 
+import firebase from 'firebase';
+import config from '../db';
 
 export default class LoginForm extends Component{
+  state = { email: '', password: '', errorMessage: null }
+
+  componentDidMount(){
+    if (!firebase.apps.length) {
+      firebase.initializeApp(config);
+    }
+  }
+
+  handleLogin(){
+    const { email, password } = this.state
+    
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(() => alert("ok"))//this.props.navigation.navigate(''))
+      .catch(error => this.setState({ errorMessage: error.message }))
+  }
+
   render(){
     
     return(
@@ -12,12 +32,14 @@ export default class LoginForm extends Component{
         barStyle="light-content"
       />
         <TextInput
-        placeholder="Usuário"
+        placeholder="E-mail"
         placeholderTextColor="#2c3e50"
         returnKeyType="Next"
         onSubmitEditing={() => this.passwordInput.focus()}
         keyboardType="email-address"
         style={styles.input}
+        onChangeText={email => this.setState({ email })}
+        value={this.state.email}
         />
         <TextInput
         placeholder="Senha"
@@ -27,7 +49,8 @@ export default class LoginForm extends Component{
         secureTextEntry
         style={styles.input}
         autoCapitalize="none"
-        
+        onChangeText={password => this.setState({ password })}
+          value={this.state.password}
         ref={(input) => this.passwordInput = input}
         />
 
