@@ -20,7 +20,7 @@ export default class LoginForm extends Component{
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => alert("ok"))//this.props.navigation.navigate(''))
-      .catch(error => this.setState({ errorMessage: error.message }))
+      .catch(error => alert(error.message))
   }
 
   render(){
@@ -54,7 +54,7 @@ export default class LoginForm extends Component{
         ref={(input) => this.passwordInput = input}
         />
 
-        <TouchableOpacity style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.buttonContainer} onPress={() => this.handleLogin()}>
           <Text style={styles.buttonText}>LOGIN</Text>
         </TouchableOpacity>
 
