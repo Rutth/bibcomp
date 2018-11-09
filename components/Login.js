@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     height: 100
   },
   title: {
-    color: '##2c3e50',
+    color: '#2c3e50',
     marginTop: 0,
     width: 150,
     textAlign: 'center',

@@ -1,7 +1,55 @@
 import React,  { Component } from 'react';
 import { StyleSheet, View, Image, TextInput, TouchableOpacity, Text, StatusBar } from 'react-native';
+import firebase from 'firebase'
+import config from '../db'
 
 export default class RegForm extends Component{
+  signup(){
+    this.setState({
+      // When waiting for the firebase server show the loading indicator.
+      loading: true
+    });
+    if (!firebase.apps.length) {
+      firebase.initializeApp(config);
+    }
+    // Make a call to firebase to create a new user.
+    firebase.auth().createUserWithEmailAndPassword(
+      this.state.email,
+      this.state.password).then(() => {
+        // then and catch are methods that we call on the Promise returned from
+        // createUserWithEmailAndPassword
+        alert('Your account was created!');
+        let uid = firebase.auth().currentUser;
+        firebase.database().ref('Usuarios/'+uid.uid).push({
+          nome: this.state.nome,
+          email: this.state.email
+        })
+        this.setState({
+          // Clear out the fields when the user logs in and hide the progress indicator.
+          email: '',
+          nome: '',
+          password: '',
+          loading: false
+        });
+    }).catch((error) => {
+      // Leave the fields filled when an error occurs and hide the progress indicator.
+      this.setState({
+        loading: false
+      });
+      alert("Account creation failed: " + error.message );
+    });
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      // used to display a progress indicator if waiting for a network response.
+      loading: false,
+      email: '',
+      nome: '',
+      password: ''
+    }
+  }
   render() {
     return(
     <View style={styles.container}>
@@ -13,9 +61,9 @@ export default class RegForm extends Component{
        <TextInput
           placeholder="Nome de usuário"
           //value={this.state.username}
-          //onChangeText={this.handleUsernameChange}
+          onChangeText={(nome) => this.setState({nome})}
           returnKeyType="Next"
-          onSubmitEditing={() => this.passwordInput.focus()}
+          //onSubmitEditing={() => this.passwordInput.focus()}
           autoCapitalize="none"
           autoCorrect={false}
           style={styles.input}
@@ -23,8 +71,8 @@ export default class RegForm extends Component{
         <TextInput
           placeholder="Endereço de e-mail"
           //value={this.state.email}
-         // onChangeText={this.handleEmailChange}
-          onSubmitEditing={() => this.passwordInput.focus()}
+          onChangeText={(email) => this.setState({email})}
+         // onSubmitEditing={() => this.passwordInput.focus()}
           keyboardType="email-address"
           autoCapitalize="none"
           autoCorrect={false}
@@ -35,7 +83,8 @@ export default class RegForm extends Component{
           placeholder="Senha"
           //value={this.state.password}
          // onChangeText={this.handlePasswordChange}
-          onSubmitEditing={() => this.passwordInput.focus()}
+          onChangeText={(password) => this.setState({password})}
+          //onSubmitEditing={() => this.passwordInput.focus()}
           autoCapitalize="none"
           autoCorrect={false}
           secureTextEntry
@@ -43,7 +92,7 @@ export default class RegForm extends Component{
 
         />
         
-        <TouchableOpacity style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.buttonContainer} onPress={() => this.signup()}>
           <Text style={styles.buttonText}>REGISTRAR</Text>
         </TouchableOpacity>
       

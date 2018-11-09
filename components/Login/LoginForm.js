@@ -6,6 +6,9 @@ import config from '../db';
 
 export default class LoginForm extends Component{
   state = { email: '', password: '', errorMessage: null }
+  constructor(props){
+    super(props)
+  }
 
   componentDidMount(){
     if (!firebase.apps.length) {
@@ -13,14 +16,20 @@ export default class LoginForm extends Component{
     }
   }
 
-  handleLogin(){
+  handleLogin = () => {
     const { email, password } = this.state
     
+    if (!firebase.apps.length) {
+      firebase.initializeApp(config);
+    } 
+
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then(() => alert("ok"))//this.props.navigation.navigate(''))
-      .catch(error => alert(error.message))
+      .then(() => this.props.navigation.navigate('PaginaIndex'))
+      .catch(error => this.setState({ errorMessage: error.message }))
+
+      console.log('teste')
   }
 
   render(){
@@ -54,7 +63,7 @@ export default class LoginForm extends Component{
         ref={(input) => this.passwordInput = input}
         />
 
-        <TouchableOpacity style={styles.buttonContainer} onPress={() => this.handleLogin()}>
+        <TouchableOpacity style={styles.buttonContainer} onPress={this.handleLogin}>
           <Text style={styles.buttonText}>LOGIN</Text>
         </TouchableOpacity>
 
