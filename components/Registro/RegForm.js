@@ -60,19 +60,19 @@ export default class RegForm extends Component{
 
        <TextInput
           placeholder="Nome de usuário"
-          //value={this.state.username}
+          value={this.state.username}
           onChangeText={(nome) => this.setState({nome})}
           returnKeyType="Next"
-          //onSubmitEditing={() => this.passwordInput.focus()}
+          onSubmitEditing={() => this.passwordInput.focus()}
           autoCapitalize="none"
           autoCorrect={false}
           style={styles.input}
         />
         <TextInput
           placeholder="Endereço de e-mail"
-          //value={this.state.email}
+          value={this.state.email}
           onChangeText={(email) => this.setState({email})}
-         // onSubmitEditing={() => this.passwordInput.focus()}
+          onSubmitEditing={() => this.passwordInput.focus()}
           keyboardType="email-address"
           autoCapitalize="none"
           autoCorrect={false}
@@ -81,8 +81,8 @@ export default class RegForm extends Component{
         />
         <TextInput
           placeholder="Senha"
-          //value={this.state.password}
-         // onChangeText={this.handlePasswordChange}
+          value={this.state.password}
+          //onChangeText={this.handlePasswordChange}
           onChangeText={(password) => this.setState({password})}
           //onSubmitEditing={() => this.passwordInput.focus()}
           autoCapitalize="none"

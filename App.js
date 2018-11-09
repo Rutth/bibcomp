@@ -8,7 +8,8 @@ import { createStackNavigator } from 'react-navigation';
 
 const RootStack = createStackNavigator(
   {
-    PaginaLogin: Login
+    PaginaLogin: Login,
+    PaginaSignup: RegForm
     },
   {
     initialRouteName: 'PaginaLogin',

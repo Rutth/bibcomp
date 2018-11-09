@@ -34,8 +34,6 @@ import AssetExample from './components/AssetExample';
 
 import { Card } from 'react-native-paper';
 
-
-
 const list = [
   {
     name: 'Game of Thrones',
@@ -66,21 +64,10 @@ const list = [
 
 
 
-
-
-
-
 export default class App extends React.Component {
-
-  
- 
-
   render() {
 
     return (
-
-      
-
      <View style={styles.container}>
 
       <StatusBar
@@ -92,11 +79,10 @@ export default class App extends React.Component {
       <Text style={styles.header}>Meu Perfil</Text>
 
       <View style={styles.info}> 
-      <Text style={styles.bloctext}>Nome Completo</Text>
-      <Text style={styles.bloctext}>E-mail</Text>
-      <Text style={styles.bloctext}>Nome de Usuario</Text>
-      
-      <Text style={styles.bloctext}>Livros Disponiveis</Text>
+      <Text style={styles.bloctext}>Nome Completo: this.state.Nome</Text>
+      <Text style={styles.bloctext}>E-mail: this.state.email</Text>
+      <Text style={styles.bloctext}>Nome de Usuario: this.state.Usuario</Text>
+      <Text style={styles.bloctext}>Livros Disponiveis: this.state.Livros</Text>
       </View>
 
       <List containerStyle={{marginBottom: 20}}>
@@ -111,29 +97,14 @@ export default class App extends React.Component {
     ))
   }
 </List>
-
-
-
-
-
-
-
-
-
-
      </View>
-
-    
-
     );
-
-  }
-
+   }
 }
 
 const styles = StyleSheet.create({
 
-  subtitleView: {
+  /*subtitleView: {
     flexDirection: 'row',
     paddingLeft: 10,
     paddingTop: 5
@@ -145,7 +116,7 @@ const styles = StyleSheet.create({
   ratingText: {
     paddingLeft: 10,
     color: 'grey'
-  },
+  },*/
 
 container: {
 
