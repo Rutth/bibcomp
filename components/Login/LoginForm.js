@@ -63,7 +63,7 @@ export default class LoginForm extends Component{
         ref={(input) => this.passwordInput = input}
         />
 
-        <TouchableOpacity style={styles.buttonContainer} onPress={this.handleLogin}>
+        <TouchableOpacity style={styles.buttonContainer} onPress={() => this.props.navigation.navigate("PaginaProfile")}>
           <Text style={styles.buttonText}>LOGIN</Text>
         </TouchableOpacity>
 

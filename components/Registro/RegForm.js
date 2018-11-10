@@ -95,6 +95,10 @@ export default class RegForm extends Component{
         <TouchableOpacity style={styles.buttonContainer} onPress={() => this.signup()}>
           <Text style={styles.buttonText}>REGISTRAR</Text>
         </TouchableOpacity>
+
+        <TouchableOpacity style={styles.buttonContainerBack} onPress={() => this.props.navigation.goBack()}>
+          <Text style={styles.buttonText}>VOLTAR</Text>
+        </TouchableOpacity>
       
       </View>
     );
@@ -133,7 +137,11 @@ export default class RegForm extends Component{
     marginBottom: 30,
     borderBottomCollor: '#686de0',
     borderBottomWidth: 1
-  }
+  },
+  buttonContainerBack: {
+    backgroundColor: '#9c9ff4',
+    paddingVertical: 15,
+    marginBottom: 10}
 
 
   });
